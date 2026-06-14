@@ -104,9 +104,13 @@ app.post("/api/auth/signup", async (req, res) => {
     const user = await User.create({ name, email, password: hashed });
     const token = jwt.sign({ id: user._id, name: user.name, email: user.email }, process.env.JWT_SECRET, { expiresIn: "7d" });
     res.status(201).json({ token, user: { id: user._id, name: user.name, email: user.email } });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } } catch (err) {
+  console.error("SIGNUP ERROR:", err);
+  res.status(500).json({
+    error: err.message,
+    stack: err.stack
+  });
+}
 });
 
 app.post("/api/auth/login", async (req, res) => {
