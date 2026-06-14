@@ -33,6 +33,15 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/api/db-test", async (req, res) => {
+  try {
+    const count = await User.countDocuments();
+    res.json({ success: true, users: count });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.get("/api/env-test", (req, res) => {
   res.json({
     mongo: !!process.env.MONGO_URI,
