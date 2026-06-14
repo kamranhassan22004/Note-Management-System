@@ -41,16 +41,6 @@ app.get("/api/env-test", (req, res) => {
   });
 });
 
-app.options("*", cors({
-  origin: [
-    "http://localhost:5173",
-    "https://note-management-system-um32.vercel.app"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
-}));
-
 app.get("/api/test", (req, res) => {
   res.json({ message: "Backend working" });
 });
