@@ -8,11 +8,19 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
+app.use(express.json());
+
 app.use(cors({
-  origin: "https://note-management-system-um32.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: [
+    "http://localhost:5173",
+    "https://note-management-system-um32.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
+
+app.options("*", cors());
 
 // ── Connect MongoDB ───────────────────────────────────────────────────────────
 mongoose.connect(process.env.MONGO_URI)
