@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-const API = "https://note-management-system-opal.vercel.app/";
+const API = "https://note-management-system-opal.vercel.app/api";
 
 const fmtDate = (iso) =>
   new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
