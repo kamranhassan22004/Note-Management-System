@@ -20,6 +20,27 @@ app.use(cors({
   credentials: true
 }));
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://note-management-system-um32.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type,Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
+app.get("/api/env-test", (req, res) => {
+  res.json({
+    mongo: !!process.env.MONGO_URI,
+    jwt: !!process.env.JWT_SECRET,
+    gemini: !!process.env.GEMINI_API_KEY
+  });
+});
+
 app.options("*", cors({
   origin: [
     "http://localhost:5173",
