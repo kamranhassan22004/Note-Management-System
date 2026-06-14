@@ -20,8 +20,19 @@ app.use(cors({
   credentials: true
 }));
 
-app.options("*", cors());
+app.options("*", cors({
+  origin: [
+    "http://localhost:5173",
+    "https://note-management-system-um32.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
 
+app.get("/api/test", (req, res) => {
+  res.json({ message: "Backend working" });
+});
 // ── Connect MongoDB ───────────────────────────────────────────────────────────
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
